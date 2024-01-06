@@ -7,6 +7,9 @@ import { DisTube } from "distube";
 
 dotenv.config();
 
+const isProduction = process.env.NODE_ENV === "production";
+const path = isProduction ? "./dist" : "./src";
+
 const { DISCORD_BOT_TOKEN } = process.env;
 
 interface BotClient extends Client {
@@ -47,11 +50,13 @@ client.color = "#f00";
 client.buttons = new Collection();
 client.aliases = new Collection();
 
-const functionFolders = fs.readdirSync(`./src/functions`);
+const functionFolders = fs.readdirSync(`${path}/functions`);
 for (const folder of functionFolders) {
   const functionFiles = fs
-    .readdirSync(`./src/functions/${folder}`)
-    .filter((file) => file.endsWith(".ts"));
+    .readdirSync(`${path}/functions/${folder}`)
+    .filter((file) =>
+      file.endsWith(process.env.NODE_ENV === "production" ? ".js" : ".ts")
+    );
 
   (async () => {
     for (const file of functionFiles) {

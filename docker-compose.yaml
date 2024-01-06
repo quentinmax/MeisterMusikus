@@ -1,0 +1,9 @@
+version: "3"
+services:
+  musikus:
+    image: meister-musikus-discord-bot
+    restart: unless-stopped
+    environment:
+      DISCORD_BOT_TOKEN: MTEzNjc0ODM2NzU0OTA0Mjc0MQ.GqHrlQ.tGCZMHtJLW2e1QKLYfed_8sA0xzmHZWadi2eSc
+      DISCORD_APP_ID: 1136748367549042741
+      NODE_ENV: production

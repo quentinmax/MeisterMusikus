@@ -8,14 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { EmbedBuilder } from "discord.js";
-function convertSecondsToMinutesAndSeconds(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    // Ensure that both minutes and seconds are displayed with leading zeros if needed
-    const formattedMinutes = String(minutes).padStart(2, "0");
-    const formattedSeconds = String(remainingSeconds).padStart(2, "0");
-    return `${formattedMinutes}:${formattedSeconds}`;
-}
 export default {
     name: "playSong",
     execute(queue, song) {

@@ -7,11 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { readdirSync } from "fs"; // Use fs/promises to work with promises
-export default (client) => __awaiter(void 0, void 0, void 0, function* () {
-    const components = yield readdirSync(`./src/components`);
-    for (const folder of components) {
-        const componentFiles = yield readdirSync(`./src/components/${folder}`).filter((file) => file.endsWith(".ts"));
-        // You can continue processing componentFiles here
-    }
-});
+export default {
+    name: "error",
+    execute(channel, error) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (channel)
+                channel.send(`An error has accured:` + "`" + error.toString().slice(0, 1974) + "`");
+            else
+                console.error(error);
+        });
+    },
+};

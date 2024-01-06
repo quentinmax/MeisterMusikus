@@ -5,15 +5,17 @@ import * as fs from "fs";
 
 // Destructure environment variables
 const { DISCORD_BOT_TOKEN, DISCORD_APP_ID } = process.env;
+const isProduction = process.env.NODE_ENV === "production";
+const path = isProduction ? "./dist" : "./src";
 
 // Export the function as a named export
 export default async (client: any) => {
-  const commandFolders = fs.readdirSync("./src/commands");
+  const commandFolders = fs.readdirSync(`${path}/commands`);
   const { commands, commandArray } = client;
   for (const folder of commandFolders) {
     const commandFiles = fs
-      .readdirSync(`./src/commands/${folder}`)
-      .filter((file) => file.endsWith(".ts"));
+      .readdirSync(`${path}/commands/${folder}`)
+      .filter((file) => file.endsWith(isProduction ? ".js" : ".ts"));
 
     for (const file of commandFiles) {
       const { default: command } = await import(

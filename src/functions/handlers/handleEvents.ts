@@ -1,10 +1,13 @@
 import { readdirSync } from "fs"; // Use fs/promises to work with promises
 
 export default async (client: any) => {
-  const eventFolders = await readdirSync(`./src/events`);
+  const isProduction = process.env.NODE_ENV === "production";
+  const path = isProduction ? "./dist" : "./src";
+
+  const eventFolders = await readdirSync(`${path}/events`);
   for (const folder of eventFolders) {
-    const eventFiles = await readdirSync(`./src/events/${folder}`).filter(
-      (file) => file.endsWith(".ts")
+    const eventFiles = await readdirSync(`${path}/events/${folder}`).filter(
+      (file) => file.endsWith(isProduction ? ".js" : ".ts")
     );
 
     switch (folder) {
